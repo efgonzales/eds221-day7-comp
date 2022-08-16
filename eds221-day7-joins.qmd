@@ -1,0 +1,94 @@
+---
+title: "Joins"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+## Joins
+
+```{r} ##didn't work on PC?? Addins > paste as tribble. from HTML table}
+animals <- tibble::tribble(
+  ~`location	species	maturity`,
+       "lagoon\tbobcat\tadult",
+     "bluff\tcoyote\tjuvenile",
+           "creek\tfox\tadult",
+    "oaks\tsquirrel\tjuvenile",
+        "bluff\tbobcat\tadult",
+                         "⬀셵Ź"
+  )
+
+
+sites <- tibble::tribble(
+           ~`location	full_site_name	jurisdiction`,
+                    "beach\tGoleta Beach\tSB City",
+                       "lagoon\tUCSB Lagoon\tUCSB",
+                    "bluff\tEllwood Mesa\tSB City",
+                  "oaks\tFremont Campground\tUSFS",
+                                          "ﴀ\177Ā"
+           )
+
+
+```
+
+```{r}
+animals <- tibble::tribble(
+             ~location,   ~species,  ~maturity,
+              "lagoon",   "bobcat",    "adult",
+               "bluff",   "coyote", "juvenile",
+               "creek",      "fox",    "adult",
+                "oaks", "squirrel", "juvenile",
+               "bluff",   "bobcat",    "adult"
+             )
+sites <- tibble::tribble(
+           ~location,      ~full_site_name, ~jurisdiction,
+             "beach",       "Goleta Beach",     "SB City",
+            "lagoon",        "UCSB Lagoon",        "UCSB",
+             "bluff",       "Ellwood Mesa",     "SB City",
+              "oaks", "Fremont Campground",        "USFS"
+           )
+```
+
+### Full join
+
+```{r}
+full_join_example <- full_join(animals, sites)
+```
+
+### Left join
+
+```{r}
+left_join_ex <- left_join(animals, sites)
+right_join_ex <- right_join(animals, sites)
+```
+
+### Inner join
+
+```{r}
+inner_join_ex <- inner_join(animals, sites, by = "location")
+sites_2 <- sites |> 
+  rename(loc = location)
+```
+
+#### Example of joining when key variables have non-matching names.
+
+```{r}
+nonmatching <- full_join(animals, sites_2, by = c("location" = "loc"))
+```
+
+## Filtering joins
+
+### Semi join
+
+```{r}
+semi_join_ex <- semi_join(animals, sites)
+```
+
+### Anti join
+
+```{r}
+anti_join_ex <- anti_join(animas, sites, by = "location")
+```
