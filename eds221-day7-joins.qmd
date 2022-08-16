@@ -6,6 +6,8 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+library(palmerpenguins)
+library(lubridate)
 ```
 
 ## Joins
@@ -92,3 +94,12 @@ semi_join_ex <- semi_join(animals, sites)
 ```{r}
 anti_join_ex <- anti_join(animas, sites, by = "location")
 ```
+
+## Wrangling
+```{r}
+penguins_subset <- penguins |> 
+  filter(island %in% c("Biscoe", "Dream")) |> 
+  select(-year, -sex) |> 
+  mutate(body_mass_kg = body_mass_g / 1000)
+```
+
