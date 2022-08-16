@@ -103,3 +103,52 @@ penguins_subset <- penguins |>
   mutate(body_mass_kg = body_mass_g / 1000)
 ```
 
+### Dates with lubridate
+```{r}
+my_date <- "03-15-1998"
+lubridate::mdy(my_date)
+
+my_date <- "11/7/2003"
+lubridate::dmy(my_date)
+
+my_date <- "08-Jun-1974"
+lubridate::dmy(my_date)
+
+my_date <- "19610518"
+my_real_date <- lubridate::ymd(my_date)
+```
+
+```{r}
+lubridate::ymd("1942-08-30")
+lubridate::mdy("09/22/84")
+```
+
+```{r}
+time <- "2020-08-12 11:18"
+time <- ymd_hm(time)
+time
+class(time)
+```
+
+###Convert timezones -- Olson timezone names?
+```{r}
+with_tz(time, "America/Los_Angeles")
+with_tz(time, "Australia/Sydney")
+my_time <- lubridate::ymd_hms(time)
+year(my_time)
+day(my_time)
+month(my_time)
+hour(my_time)
+minute(my_time)
+second(my_time)
+```
+
+```{r}
+teddy_bday <- lubridate::ymd("20170615")
+wday(teddy_bday, label = TRUE)
+
+my_bday <- lubridate::ymd("19970226")
+wday(my_bday, label = TRUE)
+week(my_bday)
+```
+
